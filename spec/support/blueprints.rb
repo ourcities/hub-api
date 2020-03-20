@@ -42,18 +42,11 @@ Widget.blueprint do
   settings { {content: "My 12 columns widget", other: "#{sn}"} }
 end
 
-Match.blueprint do
-  widget { Widget.make! }
-  first_choice { 'first_choice' }
-  second_choice { 'second_choice' }
-  goal_image { 'goal_image_path' }
-end
-
 FormEntry.blueprint do
   widget { Widget.make! }
   fields { [
       {
-        'uid': 'field-1448381355384-46', 
+        'uid': 'field-1448381355384-46',
         'kind': 'text',
         'label': 'first name',
         'placeholder': 'Insira aqui seu primeiro nome',
@@ -104,11 +97,6 @@ ActivistPressure.blueprint do
   firstname { "Foo" }
   lastname { 'Bar' }
   mail { { cc: ["barfoo@foobar.com"], subject: "Foo Bar Subject!", body: "Foo Bar Body!" } }
-end
-
-ActivistMatch.blueprint do
-  activist { Activist.make! }
-  match { Match.make! }
 end
 
 Donation.blueprint do

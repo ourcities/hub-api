@@ -44,12 +44,6 @@ class WidgetPolicy < ApplicationPolicy
         :goal_date_limit,
         :external_resource,
 
-        # Match Widget
-        :choicesA,
-        :choices1,
-        :labelChoices1,
-        :labelChoicesA,
-
         :call_to_action,
         :action_community,
 

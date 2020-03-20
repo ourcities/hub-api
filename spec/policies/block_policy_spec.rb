@@ -73,12 +73,6 @@ RSpec.describe BlockPolicy do
           :payment_methods,
           :customer_data,
 
-          # Match Widget
-          :choicesA,
-          :choices1,
-          :labelChoices1,
-          :labelChoicesA,
-
           :call_to_action,
           :action_community,
 
@@ -147,12 +141,6 @@ RSpec.describe BlockPolicy do
           :payment_type,
           :payment_methods,
           :customer_data,
-
-          # Match Widget
-          :choicesA,
-          :choices1,
-          :labelChoices1,
-          :labelChoicesA,
 
           :call_to_action,
           :action_community,

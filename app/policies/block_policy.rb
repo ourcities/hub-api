@@ -42,12 +42,6 @@ class BlockPolicy < ApplicationPolicy
         :payment_methods,
         :customer_data,
 
-        # Match Widget
-        :choicesA,
-        :choices1,
-        :labelChoices1,
-        :labelChoicesA,
-
         :call_to_action,
         :action_community,
 

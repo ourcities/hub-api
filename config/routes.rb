@@ -17,13 +17,9 @@ Rails.application.routes.draw do
   resources :blocks, only: [:index]
   resources :widgets, only: [:index] do
     get :action_opportunities, on: :collection
-    resources :match, controller: 'widgets/match', only: [:create, :update, :show, :destroy] do
-      delete 'delete_where', on: :collection
-    end
     resources :fill, controller: 'widgets/fill', only: [:create]
   end
 
-  resources :activist_matches, only: [:create]
   resources :uploads, only: [:index]
   resources :communities, only: [:index, :create, :update, :show] do
     resources :dns_hosted_zones, except: [:new, :edit] do

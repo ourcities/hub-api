@@ -16,7 +16,6 @@ RSpec.describe Widget, type: :model do
 
   it { should have_many :form_entries }
   it { should have_many :donations }
-  it { should have_many :matches }
   it { should have_many :activist_pressures }
 
   describe 'default_scope' do
@@ -53,11 +52,6 @@ RSpec.describe Widget, type: :model do
       it "should set a segment name" do
         widget = Widget.make! kind: 'pressure'
         expect(widget.segment_name).to eq "M#{widget.block.mobilization.id}P#{widget.id} - #{widget.block.mobilization.name[0..89]}"
-      end
-
-      it "should set a segment name" do
-        widget = Widget.make! kind: 'match'
-        expect(widget.segment_name).to eq "M#{widget.block.mobilization.id}M#{widget.id} - #{widget.block.mobilization.name[0..89]}"
       end
 
       context 'kind: donation' do
@@ -110,7 +104,7 @@ RSpec.describe Widget, type: :model do
   end
 
   context "create Widget from TemplateWidget object" do
-    before do 
+    before do
       @template = TemplateWidget.make!
       @block = Block.make!
     end
@@ -156,24 +150,10 @@ RSpec.describe Widget, type: :model do
       expect((Widget.new kind: 'pressure').pressure?).to be true
     end
     it 'should return false' do
-      expect((Widget.new kind: 'match').pressure?).to be false
       expect((Widget.new kind: 'donation').pressure?).to be false
-      expect((Widget.new kind: 'form').pressure?).to be false 
-      expect((Widget.new kind: 'draft').pressure?).to be false 
+      expect((Widget.new kind: 'form').pressure?).to be false
+      expect((Widget.new kind: 'draft').pressure?).to be false
       expect((Widget.new kind: 'content').synchro_to_mailchimp?).to be false
-    end
-  end
-
-  describe '#match?' do
-    it 'should return true' do
-      expect((Widget.new kind: 'match').match?).to be true
-    end
-    it 'should return false' do
-      expect((Widget.new kind: 'donation').match?).to be false
-      expect((Widget.new kind: 'form').match?).to be false 
-      expect((Widget.new kind: 'draft').match?).to be false 
-      expect((Widget.new kind: 'content').synchro_to_mailchimp?).to be false
-      expect((Widget.new kind: 'pressure').match?).to be false
     end
   end
 
@@ -182,11 +162,10 @@ RSpec.describe Widget, type: :model do
       expect((Widget.new kind: 'donation').donation?).to be true
     end
     it 'should return false' do
-      expect((Widget.new kind: 'form').donation?).to be false 
-      expect((Widget.new kind: 'draft').donation?).to be false 
+      expect((Widget.new kind: 'form').donation?).to be false
+      expect((Widget.new kind: 'draft').donation?).to be false
       expect((Widget.new kind: 'content').synchro_to_mailchimp?).to be false
       expect((Widget.new kind: 'pressure').donation?).to be false
-      expect((Widget.new kind: 'match').donation?).to be false
     end
   end
 
@@ -195,11 +174,10 @@ RSpec.describe Widget, type: :model do
       expect((Widget.new kind: 'form').form?).to be true
     end
     it 'should return false' do
-      expect((Widget.new kind: 'draft').form?).to be false 
+      expect((Widget.new kind: 'draft').form?).to be false
       expect((Widget.new kind: 'content').synchro_to_mailchimp?).to be false
       expect((Widget.new kind: 'pressure').form?).to be false
-      expect((Widget.new kind: 'match').form?).to be false
-      expect((Widget.new kind: 'donation').form?).to be false 
+      expect((Widget.new kind: 'donation').form?).to be false
     end
   end
 
@@ -207,7 +185,6 @@ RSpec.describe Widget, type: :model do
     it 'should return true' do
       expect((Widget.new kind: 'form').synchro_to_mailchimp?).to be true
       expect((Widget.new kind: 'pressure').synchro_to_mailchimp?).to be true
-      expect((Widget.new kind: 'match').synchro_to_mailchimp?).to be true
       expect((Widget.new kind: 'donation').synchro_to_mailchimp?).to be true
     end
     it 'should return false' do
@@ -219,7 +196,7 @@ RSpec.describe Widget, type: :model do
   describe '#create_mailchimp_donators_segments' do
     let(:widget) { create :widget, mailchimp_unique_segment_id: nil }
 
-    it do 
+    it do
       obj = spy :segment_data
       allow(obj).to receive(:body).and_return({"id" => 12})
       allow(widget).to receive(:create_segment).and_return obj

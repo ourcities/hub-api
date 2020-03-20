@@ -5,11 +5,11 @@ FactoryGirl.define do
   factory :mobilization, class: Mobilization do
     user
     sequence(:name) { |sn| "Mobilization #{sn}" }
-    color_scheme  'meurio-scheme' 
-    goal 'Make the world a better place' 
-    header_font 'ubuntu' 
+    color_scheme  'meurio-scheme'
+    goal 'Make the world a better place'
+    header_font 'ubuntu'
     body_font 'open-sans'
-    sequence(:custom_domain) {|sn| "mymobilization#{sn}.mydomain.org" }  
+    sequence(:custom_domain) {|sn| "mymobilization#{sn}.mydomain.org" }
     sequence(:slug) { |sn| "#{sn}-mobilization" }
     community
   end
@@ -34,18 +34,11 @@ FactoryGirl.define do
     sequence(:settings) {|sn| {content: "My 12 columns widget", other: "#{sn}"} }
   end
 
-  factory :match, class: Match do
-    widget
-    first_choice { 'first_choice' }
-    second_choice { 'second_choice' }
-    goal_image { 'goal_image_path' }
-  end
-
   factory :form_entry, class: FormEntry do
     widget
     fields { [
         {
-          'uid': 'field-1448381355384-46', 
+          'uid': 'field-1448381355384-46',
           'kind': 'text',
           'label': 'first name',
           'placeholder': 'Insira aqui seu primeiro nome',
@@ -67,8 +60,8 @@ FactoryGirl.define do
           'placeholder': 'Insira aqui o seu email',
           'required': 'true',
           'value': 'zemane@naoexiste.com'
-        }    
-      ].to_json 
+        }
+      ].to_json
     }
   end
 
@@ -78,11 +71,6 @@ FactoryGirl.define do
     firstname { "Foo" }
     lastname { 'Bar' }
     mail { { cc: ["barfoo@foobar.com"], subject: "Foo Bar Subject!", body: "Foo Bar Body!" } }
-  end
-
-  factory :activist_match, class: ActivistMatch do
-    activist
-    match
   end
 
   factory :donation, class: Donation do
@@ -174,7 +162,7 @@ FactoryGirl.define do
 end
 
 
-# # USE EXAMPLES: 
+# # USE EXAMPLES:
 
 # # Returns a User instance that's not saved
 # user = build(:user)

@@ -4,7 +4,6 @@ class Activist < ActiveRecord::Base
   has_many :addresses, dependent: :destroy
   has_many :form_entries
   has_many :activist_pressures
-  has_many :activist_matches
   has_many :activist_tags
 
   validates :name, :email, presence: true

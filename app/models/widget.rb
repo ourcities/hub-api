@@ -13,7 +13,6 @@ class Widget < ActiveRecord::Base
 
   has_many :form_entries
   has_many :donations
-  has_many :matches
   has_many :activist_pressures
 
   store_accessor :settings
@@ -43,7 +42,7 @@ class Widget < ActiveRecord::Base
   end
 
   def segment_name donation_segment_kind: :main
-    kinds_correlation = {'pressure' => 'P', 'form' => 'F', 'match' => 'M', 'donation' => 'D'}
+    kinds_correlation = {'pressure' => 'P', 'form' => 'F', 'donation' => 'D'}
 
     mob = self.mobilization
     mob_id = mob.id
@@ -62,10 +61,6 @@ class Widget < ActiveRecord::Base
     self.kind == 'form'
   end
 
-  def match?
-    self.kind == 'match'
-  end
-
   def donation?
     self.kind == 'donation'
   end
@@ -79,7 +74,7 @@ class Widget < ActiveRecord::Base
   end
 
   def synchro_to_mailchimp?
-    self.form? or self.match? or self.donation?  or self.pressure?
+    self.form? or self.donation?  or self.pressure?
   end
 
   def donation_values
@@ -106,7 +101,7 @@ class Widget < ActiveRecord::Base
         mailchimp_recurring_inactive_segment_id: create_segment(segment_name donation_segment_kind: :recurring_inactive).body["id"]
     end
   end
-  
+
   def self.create_from template, block_instance
     widget = Widget.new
     widget.block = block_instance

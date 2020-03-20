@@ -46,7 +46,7 @@ RSpec.describe Mobilizations::WidgetsController, type: :controller do
         stub_current_user(@admin)
         put :update, update_widget_1_params
 
-        saved = Widget.find @widget1.id        
+        saved = Widget.find @widget1.id
         expect(saved.settings['finish_message']).to eq('finish_message string')
         expect(saved.settings['finish_message_type']).to eq('finish_message_type string')
         expect(saved.settings['finish_message_background']).to eq('finish_message_background string')
@@ -97,8 +97,7 @@ RSpec.describe Mobilizations::WidgetsController, type: :controller do
               action_community: false,
               action_opportunity: false,
               exported_at: nil,
-              match_list: [],
-              count: 0        
+              count: 0
             },
             format: 'json'
           }

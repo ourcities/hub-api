@@ -7,7 +7,6 @@ RSpec.describe Activist, type: :model do
   it { should have_many :activist_tags }
   it { should have_many :form_entries }
   it { should have_many :activist_pressures }
-  it { should have_many :activist_matches }
 
   it { should validate_presence_of :name }
   it { should validate_presence_of :email }

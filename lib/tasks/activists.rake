@@ -1,9 +1,9 @@
 namespace :activists do
   desc 'Delete activists not used'
   task free_not_used: [:environment] do
-    Activist.all.order(:id).each do |activist| 
-      if (Donation.where("activist_id = #{activist.id}").count == 0) && (FormEntry.where("activist_id = #{activist.id}").count == 0) && 
-         (ActivistPressure.where("activist_id = #{activist.id}").count == 0) && (ActivistMatch.where("activist_id = #{activist.id}").count == 0) && 
+    Activist.all.order(:id).each do |activist|
+      if (Donation.where("activist_id = #{activist.id}").count == 0) && (FormEntry.where("activist_id = #{activist.id}").count == 0) &&
+         (ActivistPressure.where("activist_id = #{activist.id}").count == 0) &&
          (CreditCard.where("activist_id = #{activist.id}").count == 0) && (Payment.where("activist_id = #{activist.id}").count == 0)
           activist.addresses.each{|addr| addr.delete}
           activist.delete
@@ -73,7 +73,7 @@ namespace :activists_from do
   task donations: [:environment] do
     donations = Donation.where('activist_id is null')
     donations.each {|d| d.generate_activist }
-    
+
     no_activists = donations.select{|d| d.activist_id == nil }
     no_activists.each do |don|
       don.activist = Activist.by_email don.email
