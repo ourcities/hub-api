@@ -20,7 +20,7 @@ class WidgetSerializer < ActiveModel::Serializer
   def settings
     return unless object.settings
     json = {}
-    object.settings.keys.each do |key|
+    JSON.parse(object.settings).keys.each do |key|
       if key == 'fields'
         json[key] = JSON.parse(object.settings[key])
       else

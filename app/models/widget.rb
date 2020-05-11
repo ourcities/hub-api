@@ -16,7 +16,7 @@ class Widget < ActiveRecord::Base
   has_many :matches
   has_many :activist_pressures
 
-  store_accessor :settings
+  # store_accessor :settings
 
   delegate :user, to: :mobilization
 
