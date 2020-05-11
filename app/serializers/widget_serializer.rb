@@ -19,15 +19,12 @@ class WidgetSerializer < ActiveModel::Serializer
 
   def settings
     return unless object.settings
-    json = {}
-    JSON.parse(object.settings).keys.each do |key|
-      if key == 'fields'
-        json[key] = JSON.parse(object.settings[key])
-      else
-        json[key] = object.settings[key]
-      end
+    v = object.settings.to_s.gsub! '=>', ':'
+    if v.nil?
+      return JSON.parse(object.settings.to_s)
+    else
+      return JSON.parse(v)
     end
-    json
   end
 
   def form_entries_count
