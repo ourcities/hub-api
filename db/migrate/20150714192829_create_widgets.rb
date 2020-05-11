@@ -4,7 +4,7 @@ class CreateWidgets < ActiveRecord::Migration
     create_table :widgets do |t|
       t.integer :block_id
       t.integer :size
-      t.hstore :settings
+      t.text :settings
       t.string :kind
 
       t.timestamps null: false
