@@ -28,7 +28,10 @@ class DnsHostedZone < ActiveRecord::Base
   end
 
   def delegation_set_servers
-    self.response['delegation_set']['name_servers'] if self.response
+    if self.response && self.response['delegation_set']
+      self.response['delegation_set']['name_servers'] 
+    elsif self.response && self.response['DelegationSet']
+      self.response['DelegationSet']['NameServers']
   end
 
   def self.execute_sql(*sql_array)
@@ -36,7 +39,10 @@ class DnsHostedZone < ActiveRecord::Base
   end
 
   def hosted_zone_id
-    self.response['hosted_zone']['id'] if self.response
+    if self.response && self.response['hosted_zone']
+      self.response['hosted_zone']['id']
+    elsif self.response && self.response['HostedZone']
+      self.response['HostedZone']['Id']
   end
 
   def create_hosted_zone_on_aws

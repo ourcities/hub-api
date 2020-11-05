@@ -1,27 +1,27 @@
 pipeline:
-  unit-tests:
-    image: ruby:2.4.6-alpine
-    commands:
-      - apk add --no-cache --update postgresql-dev libxml2-dev libxslt-dev openssl libpq libffi-dev bash curl libstdc++ tzdata bash ca-certificates build-base ruby-dev libc-dev linux-headers postgresql-client postgresql git
-      - cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
-      - echo "America/Sao_Paulo" > /etc/timezone
-      - export RAILS_ENV=test RACK_ENV=test DATABASE_URL=postgres://bonde@database/hub_api_test
-      - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-      - sleep 5;
-      - psql -c "create database hub_api_test;" -hdatabase -U postgres -W postgres
-      - psql -c "create role bonde SUPERUSER LOGIN;" -hdatabase -U postgres -W postgres
-      - bundle install
-      - rake db:migrate
-      - bundle exec rspec spec
-      - bundle exec rubocop app spec
-    secrets: [ codacy_token, codeclimate_token, codecov_token ]
-    when:
-      event: [push, tag]
+  # unit-tests:
+  #   image: ruby:2.4.6-alpine
+  #   commands:
+  #     - apk add --no-cache --update postgresql-dev libxml2-dev libxslt-dev openssl libpq libffi-dev bash curl libstdc++ tzdata bash ca-certificates build-base ruby-dev libc-dev linux-headers postgresql-client postgresql git
+  #     - cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+  #     - echo "America/Sao_Paulo" > /etc/timezone
+  #     - export RAILS_ENV=test RACK_ENV=test DATABASE_URL=postgres://bonde@database/hub_api_test
+  #     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  #     - sleep 5;
+  #     - psql -c "create database hub_api_test;" -hdatabase -U postgres -W postgres
+  #     - psql -c "create role bonde SUPERUSER LOGIN;" -hdatabase -U postgres -W postgres
+  #     - bundle install
+  #     - rake db:migrate
+  #     - bundle exec rspec spec
+  #     - bundle exec rubocop app spec
+  #   secrets: [ codacy_token, codeclimate_token, codecov_token ]
+  #   when:
+  #     event: [push, tag]
 
-  db-tests:
-    image: nossas/docker-pgtap:develop
-    commands:
-      - /test.sh -h database -u bonde -w 3x4mpl3 -d hub_api_test -t './spec/**/**/*.sql'
+  # db-tests:
+  #   image: nossas/docker-pgtap:develop
+  #   commands:
+  #     - /test.sh -h database -u bonde -w 3x4mpl3 -d hub_api_test -t './spec/**/**/*.sql'
 
   staging-publish:
     image: plugins/docker
